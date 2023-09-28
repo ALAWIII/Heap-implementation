@@ -186,9 +186,7 @@ class HeapQueue:
 
         if not ascending and self.max_priority:  # condition 1 , to convert to min_heap
             self.max_priority = False
-        elif (
-            ascending and not self.max_priority
-        ):  # condition 2 , to convert to max_heap
+        elif ascending and not self.max_priority:  # condition 2 , to convert to max_heap
             self.max_priority = True
 
         if not self.max_priority:  # condition 3
