@@ -1,23 +1,3 @@
-class Item:
-    __slots__ = "key", "value"
-
-    def __init__(self, key, value):
-        self.key = key
-        self.value = value
-
-    def __lt__(self, other):
-        if isinstance(other, (int, float)):
-            return self.key < other
-        return self.key < other.key
-
-    def __eq__(self, other):
-        if isinstance(other, (int, float)):
-            return self.key == other
-        return self.key == other.key
-
-    def __repr__(self):
-        return f"{self.key}:{self.value}"
-
 
 class HeapQueue:
     def __init__(self, data: list = [], max_priority: bool = False):
@@ -221,13 +201,8 @@ class HeapQueue:
             self._func2(self._sort_up_down)
 
 
-class HeapQueueDict(HeapQueue):
-    def add(self, key, value):
-        item = Item(key, value)
-        self._data.append(item)
-        self._upHeap(len(self) - 1)
 
-
+# Examples
 obj = HeapQueue(data=[1, 2, 3, 4, 5, 6, 7, 8, 9], max_priority=True)
 obj.sort(ascending=True)
 
