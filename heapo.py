@@ -1,3 +1,23 @@
+class Item:
+    __slots__ = "key", "value"
+
+    def __init__(self, key, value):
+        self.key = key
+        self.value = value
+
+    def __lt__(self, other):
+        if isinstance(other, (int, float)):
+            return self.key < other
+        return self.key < other.key
+
+    def __eq__(self, other):
+        if isinstance(other, (int, float)):
+            return self.key == other
+        return self.key == other.key
+
+    def __repr__(self):
+        return f"{self.key}:{self.value}"
+
 
 class HeapQueue:
     def __init__(self, data: list = [], max_priority: bool = False):
@@ -179,14 +199,16 @@ class HeapQueue:
         """the point is to sort based on your needs it has to do some conversions from min to max or from max to min
         or no conversions at all!
 
-        if it was a min_heap and you want  ascending you run condition 2,4,
-        if it was a min_heap and you want descending you run condition 3,
-        if it was a max_heap and you want ascending you have you run condition 4
-        if it was a max_heap and you want descending you run condition 1,3"""
+        if it was a min_heap, and you want  ascending you run condition 2,4,
+        if it was a min_heap, and you want descending you run condition 3,
+        if it was a max_heap, and you want ascending you have you run condition 4
+        if it was a max_heap, and you want descending you run condition 1,3"""
 
         if not ascending and self.max_priority:  # condition 1 , to convert to min_heap
             self.max_priority = False
-        elif ascending and not self.max_priority:  # condition 2 , to convert to max_heap
+        elif (
+            ascending and not self.max_priority
+        ):  # condition 2 , to convert to max_heap
             self.max_priority = True
 
         if not self.max_priority:  # condition 3
@@ -199,9 +221,13 @@ class HeapQueue:
             self._func2(self._sort_up_down)
 
 
+class HeapQueueDict(HeapQueue):
+    def add(self, key, value):
+        item = Item(key, value)
+        super().add(item)
 
-# Examples
-obj = HeapQueue(data=[1, 2, 3, 4, 5, 6, 7, 8, 9], max_priority=True)
+
+"""obj = HeapQueue(data=[1, 2, 3, 4, 5, 6, 7, 8, 9], max_priority=True)
 obj.sort(ascending=True)
 
 obj2 = HeapQueue(data=[1, 2, 3, 4, 5, 6, 7, 8, 9], max_priority=True)
@@ -217,3 +243,4 @@ print(obj)
 print(obj2)
 print(obj3)
 print(obj2)
+"""
